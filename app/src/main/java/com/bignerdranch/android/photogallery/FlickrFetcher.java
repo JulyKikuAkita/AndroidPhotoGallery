@@ -17,7 +17,8 @@ import java.util.List;
 
 public class FlickrFetcher {
     private static final String TAG = "FlickrFetcher";
-    private static final String API_KEY = "enter your key"; //TODO: replace key before commit
+    //private static final String API_KEY = "enter your key"; //TODO: replace key before commit
+    private static final String API_KEY = "a6058ef8122b2102f28067a7dd84a849"; //TODO: replace key before commit
 
     private static final String FETCH_RECENTS_METHOD = "flickr.photos.getRecent";
     private static final String SEARCH_METHOD = "flickr.photos.search";
@@ -113,6 +114,7 @@ public class FlickrFetcher {
                 continue;
             }
             item.setUrl(photoJsonObject.getString("url_s"));
+            item.setOwner(photoJsonObject.getString("owner"));
             items.add(item);
         }
 
