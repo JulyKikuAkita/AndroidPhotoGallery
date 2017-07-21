@@ -9,11 +9,11 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 /**
- * . This broadcast intent will often be sent right before PollService dies.
+ * This broadcast intent will often be sent right before PollService dies.
  * That means that your broadcast receiver might be dead, too.
- Thus, your final broadcast receiver will need to be a standalone receiver,
- and you will need to enforce that it runs after the dynamically
- registered receiver by different means.
+ * Thus, your final broadcast receiver will need to be a standalone receiver,
+ * and you will need to enforce that it runs after the dynamically
+ * registered receiver by different means.
  */
 public class NotificationReceiver extends BroadcastReceiver {
     private static final String TAG = "NotificationReceiver";
