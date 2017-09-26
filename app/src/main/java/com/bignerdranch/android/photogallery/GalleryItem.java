@@ -2,10 +2,37 @@ package com.bignerdranch.android.photogallery;
 
 import android.net.Uri;
 
+import com.google.gson.annotations.SerializedName;
+
+/**
+ * Sample gallery obj
+ {
+ "id": "37286997076",
+ "owner": "63189170@N04",
+ "secret": "02762c3e82",
+ "server": "4512",
+ "farm": 5,
+ "title": "Shiba Inu Wedding Cake Topper, dogs cake topper",
+ "ispublic": 1,
+ "isfriend": 0,
+ "isfamily": 0,
+ "url_s": "https:\/\/farm5.staticflickr.com\/4512\/37286997076_02762c3e82_m.jpg",
+ "height_s": "114",
+ "width_s": "240"
+ }
+
+ */
 public class GalleryItem {
-    private String mCaption;
+    @SerializedName("id")
     private String mId;
+
+    @SerializedName("title")
+    private String mCaption;
+
+    @SerializedName("url_s")
     private String mUrl;
+
+    @SerializedName("owner")
     private String mOwner;
 
     @Override

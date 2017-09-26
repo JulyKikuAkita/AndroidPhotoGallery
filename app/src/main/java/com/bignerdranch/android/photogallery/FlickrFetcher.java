@@ -3,6 +3,9 @@ package com.bignerdranch.android.photogallery;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,14 +74,19 @@ public class FlickrFetcher {
         return downloadGalleryItems(url);
     }
 
+    /**
+     * - parseItems(List<GalleryItem> items, String jsonLine) GSON
+     * - private void parseItemsJson(List<GalleryItem> items, JSONObject jsonBody) native JSONObj
+     */
     public List<GalleryItem> downloadGalleryItems(String url) {
         List<GalleryItem> items = new ArrayList<>();
         try {
             String jsonString = getUrlString(url);
             Log.i(TAG, "Received JSON: " + jsonString);
 
-            JSONObject jsonBody = new JSONObject(jsonString);
-            parseItems(items, jsonBody);
+            //JSONObject jsonBody = new JSONObject(jsonString);
+            parseItems(items, jsonString);
+            //parseItemsJson(items, jsonBody);
         } catch (IOException ioe) {
             Log.e(TAG, "Failed to fetch items", ioe);
         } catch (JSONException je) {
@@ -97,8 +105,15 @@ public class FlickrFetcher {
         return uriBuilder.build().toString();
     }
 
-    //TODO: use Gson
-    private void parseItems(List<GalleryItem> items, JSONObject jsonBody)
+    // Use Gson
+    private void parseItems(List<GalleryItem> items, String jsonLine)
+            throws IOException, JSONException{
+        Gson gson = new GsonBuilder().create();
+        items.addAll(gson.fromJson(jsonLine, Response.class).getGalleryItemList());
+    }
+
+    //Use native JsonObject
+    private void parseItemsJson(List<GalleryItem> items, JSONObject jsonBody)
             throws IOException, JSONException{
         JSONObject photosJsonObject = jsonBody.getJSONObject("photos");
         JSONArray photosJsonArray = photosJsonObject.getJSONArray("photo");
