@@ -9,19 +9,53 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_fragment);
+//
+//        FragmentManager fm = getSupportFragmentManager();
+//        Fragment fragment_thumbnail = fm.findFragmentById(R.id.fragment_container);
+////        Fragment fragment_carousel = fm.findFragmentById(R.id.fragment_container_carousel);
+////
+////        if (fragment_carousel == null) {
+////            fragment_carousel = createFragment();
+////        }
+//
+//        if (fragment_thumbnail == null) {
+//            fragment_thumbnail = createFragment();
+//        }
+//
+//
+//
+//        fm.beginTransaction()
+//                .add(R.id.fragment_container, fragment_thumbnail)
+//                //.add(R.id.fragment_container_carousel, fragment_carousel)
+//                .commit();
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment);
+        setContentView(R.layout.activity_photo_carousel);
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        Fragment fragment_thumbnail = fm.findFragmentById(R.id.fragment_container);
+        Fragment fragment_carousel = fm.findFragmentById(R.id.fragment_container_carousel);
 
-        if (fragment == null) {
-            fragment = createFragment();
-            fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit();
+        if (fragment_carousel == null) {
+            fragment_carousel = createFragment();
         }
+
+        if (fragment_thumbnail == null) {
+            fragment_thumbnail = createFragment();
+        }
+
+
+
+        fm.beginTransaction()
+                .add(R.id.fragment_container, fragment_thumbnail)
+                .add(R.id.fragment_container_carousel, fragment_carousel)
+                .commit();
     }
 }
