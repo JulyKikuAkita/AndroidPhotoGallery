@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
-    protected abstract Fragment createFragment();
+    protected abstract PhotoGalleryFragment createPhotoGalleryFragment();
+    protected abstract PhotoCarouselFragment createPhotoCarouselFragment();
+    protected abstract PhotoPageFragment createPhotoPageFragment();
 
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +46,12 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         Fragment fragment_carousel = fm.findFragmentById(R.id.fragment_container_carousel);
 
         if (fragment_carousel == null) {
-            fragment_carousel = createFragment();
+            fragment_carousel = createPhotoCarouselFragment();
         }
 
         if (fragment_thumbnail == null) {
-            fragment_thumbnail = createFragment();
+            fragment_thumbnail = createPhotoGalleryFragment();
         }
-
-
 
         fm.beginTransaction()
                 .add(R.id.fragment_container, fragment_thumbnail)

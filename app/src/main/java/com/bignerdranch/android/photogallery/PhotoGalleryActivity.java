@@ -2,7 +2,6 @@ package com.bignerdranch.android.photogallery;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 
 public class PhotoGalleryActivity extends SingleFragmentActivity {
 
@@ -10,7 +9,17 @@ public class PhotoGalleryActivity extends SingleFragmentActivity {
         return new Intent(context, PhotoGalleryActivity.class);
     }
     @Override
-    protected Fragment createFragment() {
+    protected PhotoCarouselFragment createPhotoCarouselFragment() {
+        return PhotoCarouselFragment.newInstance();
+    }
+
+    @Override
+    protected PhotoGalleryFragment createPhotoGalleryFragment() {
         return PhotoGalleryFragment.newInstance();
+    }
+
+    @Override
+    protected PhotoPageFragment createPhotoPageFragment() {
+        return PhotoPageFragment.newInstance(getIntent().getData());
     }
 }
