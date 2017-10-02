@@ -10,7 +10,8 @@
 
     <ImageView
         android:id="@+id/photo_carousel_item_view"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
         />
 </LinearLayout>

@@ -9,15 +9,16 @@
                 android:orientation="horizontal"
                 android:paddingBottom="5dp"
                 android:paddingTop="16dp"
-                android:layout_weight="1"
-                >
+                tools:context="com.bignerdranch.android.photogallery.PhotoGalleryActivity">
+>
 
 
 <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                                    android:id="@+id/photo_carousel_pager"
                                    android:layout_width="match_parent"
                                    android:layout_height="match_parent"
-                                   android:layout_alignParentEnd="true">
+                                   android:layout_alignParentEnd="true"
+>
 </android.support.v4.view.ViewPager>
 
 </RelativeLayout>

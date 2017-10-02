@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -39,7 +39,7 @@ public class PhotoCarouselFragment extends VisibleFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        setHasOptionsMenu(true);
+        //setHasOptionsMenu(true); //TODO: not enable search for carousel for now
         updateItems();
 
         Handler responseHandler = new Handler();
@@ -84,10 +84,10 @@ public class PhotoCarouselFragment extends VisibleFragment {
         }
     }
 
-    private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder> {
+    private class CarouselAdapter extends RecyclerView.Adapter<PhotoHolder> {
         private List<GalleryItem> mGalleryItems;
 
-        public PhotoAdapter(List<GalleryItem> galleryItems) {
+        public CarouselAdapter(List<GalleryItem> galleryItems) {
             mGalleryItems = galleryItems;
         }
 
@@ -118,11 +118,16 @@ public class PhotoCarouselFragment extends VisibleFragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        /**
+         * Do not use R.layout.fragment_photo_carousel here due to
+         * E/AndroidRuntime(10484):
+         * Caused by: java.lang.ClassCastException: android.support.v4.view.ViewPager
+         * cannot be cast to android.support.v7.widget.RecyclerVie
+         */
         View v = inflater.inflate(R.layout.fragment_photo_gallery, container, false);
-
         mPhotoRecyclerView = (RecyclerView) v.findViewById(R.id.photo_recycler_view);
         mPhotoRecyclerView.setLayoutManager( // need scrollable manager not grid manager
-                new GridLayoutManager(getActivity(), 5));
+                new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL, false));
 
         setupAdapter();
 
@@ -208,7 +213,7 @@ public class PhotoCarouselFragment extends VisibleFragment {
 
     private void setupAdapter() {
         if (isAdded()) { //confirms fragment has been attached to an activity w/ asyncTask
-            mPhotoRecyclerView.setAdapter(new PhotoAdapter(mItems));
+            mPhotoRecyclerView.setAdapter(new CarouselAdapter(mItems));
         }
     }
 
